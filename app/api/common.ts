@@ -9,13 +9,6 @@ const serverConfig = getServerSideConfig();
 export async function requestOpenai(req: NextRequest) {
   const controller = new AbortController();
 
-  // reqBody 
-  const reqBody = await req.text();
-  console.log("[Request Body]", reqBody);
-  // get model from reqBody
-  const model = reqBody ? JSON.parse(reqBody).model : "";
-  console.log("[Request Body Model]", model);
-
   var authValue,
     authHeaderName = "";
   if (serverConfig.isAzure) {
@@ -32,17 +25,6 @@ export async function requestOpenai(req: NextRequest) {
     authHeaderName = "Authorization";
   }
 
-  // if model is claude then claude api key to authValue
-  if (model && model.includes("claude")) {
-    const claudeApiKey = serverConfig.claudeApiKey;
-    // Check if claudeApiKey is not undefined before assigning
-    if (typeof claudeApiKey === 'string') {
-      authValue = claudeApiKey;
-    } else {
-      throw new Error('claudeApiKey is undefined');
-    }
-  }
-
   let path = `${req.nextUrl.pathname}${req.nextUrl.search}`.replaceAll(
     "/api/openai/",
     "",
@@ -51,17 +33,6 @@ export async function requestOpenai(req: NextRequest) {
   let baseUrl =
     serverConfig.azureUrl || serverConfig.baseUrl || OPENAI_BASE_URL;
   
-  // if model is claude then  claude url to baseUrl
-  if (model && model.includes("claude")) {
-    const claudeUrl = serverConfig.claudeUrl;
-    // Check if claudeUrl is not undefined before assigning
-    if (typeof claudeUrl === 'string') {
-      baseUrl = claudeUrl;
-    } else {
-      throw new Error('claudeUrl is undefined');
-    }
-  }
-
   if (!baseUrl.startsWith("http")) {
     baseUrl = `https://${baseUrl}`;
   }
@@ -120,8 +91,7 @@ export async function requestOpenai(req: NextRequest) {
         DEFAULT_MODELS,
         serverConfig.customModels,
       );
-      // const clonedBody = await req.text();
-      const clonedBody = reqBody;
+      const clonedBody = await req.text();
       fetchOptions.body = clonedBody;
 
       const jsonBody = JSON.parse(clonedBody) as { model?: string };
