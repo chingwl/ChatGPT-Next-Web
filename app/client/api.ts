@@ -97,10 +97,12 @@ export class ClientApi {
   constructor(provider: ModelProvider = ModelProvider.GPT) {
     switch (provider) {
       case ModelProvider.GeminiPro:
-        this.llm = new GeminiProApi();
+        // this.llm = new GeminiProApi();
+        this.llm = new ChatGPTApi();
         break;
       case ModelProvider.Claude:
-        this.llm = new ClaudeApi();
+        // this.llm = new ClaudeApi();
+        this.llm = new ChatGPTApi();
         break;
       default:
         this.llm = new ChatGPTApi();
@@ -160,7 +162,8 @@ export function getHeaders() {
     Accept: "application/json",
   };
   const modelConfig = useChatStore.getState().currentSession().mask.modelConfig;
-  const isGoogle = modelConfig.model.startsWith("gemini");
+  // const isGoogle = modelConfig.model.startsWith("gemini");
+  const isGoogle = false;
   const isAzure = accessStore.provider === ServiceProvider.Azure;
   const authHeader = isAzure ? "api-key" : "Authorization";
   const apiKey = isGoogle
