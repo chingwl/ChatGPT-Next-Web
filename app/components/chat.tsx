@@ -1489,7 +1489,7 @@ function _Chat() {
                   <div className={styles["chat-message-action-date"]}>
                     {isContext
                       ? Locale.Chat.IsContext
-                      : message.date.toLocaleString()}
+                      : message.model.toLocaleString() + ' - ' + message.date.toLocaleString()}
                   </div>
                 </div>
               </div>
