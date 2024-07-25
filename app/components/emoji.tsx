@@ -8,6 +8,8 @@ import { ModelType } from "../store";
 
 import BotIcon from "../icons/bot.svg";
 import BlackBotIcon from "../icons/black-bot.svg";
+import ClaudeAiIcon from "../icons/claude-ai-icon.svg";
+import GeminiIcon from "../icons/google-gemini-icon.svg";
 
 export function getEmojiUrl(unified: string, style: EmojiStyle) {
   // Whoever owns this Content Delivery Network (CDN), I am using your CDN to serve emojis
@@ -36,8 +38,12 @@ export function Avatar(props: { model?: ModelType; avatar?: string }) {
   if (props.model) {
     return (
       <div className="no-dark">
-        {props.model?.startsWith("gpt-4") ? (
+        {props.model.startsWith("gpt-4") ? (
           <BlackBotIcon className="user-avatar" />
+        ) : props.model.startsWith("claude") ? (
+          <ClaudeAiIcon className="user-avatar" />
+        ) : props.model.startsWith("gemini") ? (
+          <GeminiIcon className="user-avatar" />
         ) : (
           <BotIcon className="user-avatar" />
         )}
