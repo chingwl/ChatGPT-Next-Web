@@ -125,7 +125,7 @@ function getSummarizeModel(currentModel: string) {
   //   return GEMINI_SUMMARIZE_MODEL;
   // }
   // return currentModel;
-  return "gpt-3.5-turbo";
+  return "gpt-4o-mini";
 }
 
 function countMessages(msgs: ChatMessage[]) {
