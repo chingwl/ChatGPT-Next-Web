@@ -8,6 +8,11 @@ import { ModelType } from "../store";
 
 import BotIcon from "../icons/bot.svg";
 import BlackBotIcon from "../icons/black-bot.svg";
+import ClaudeAiIcon from "../icons/claude-ai-icon.svg";
+import GeminiIcon from "../icons/google-gemini-icon.svg";
+import MetaLlamaIcon from "../icons/meta-llama-icon.svg";
+import MetasoIcon from "../icons/metaso-icon.svg";
+import MoonshotAiIcon from "../icons/moonshot-ai-icon.svg";
 
 export function getEmojiUrl(unified: string, style: EmojiStyle) {
   // Whoever owns this Content Delivery Network (CDN), I am using your CDN to serve emojis
@@ -40,6 +45,16 @@ export function Avatar(props: { model?: ModelType; avatar?: string }) {
         props.model?.startsWith("chatgpt-4o") ||
         props.model?.startsWith("o1") ? (
           <BlackBotIcon className="user-avatar" />
+        ) : props.model.startsWith("claude") ? (
+          <ClaudeAiIcon className="user-avatar" />
+        ) : props.model.startsWith("gemini") ? (
+          <GeminiIcon className="user-avatar" />
+        ) : props.model.startsWith("llama") ? (
+          <MetaLlamaIcon className="user-avatar" />
+        ) : props.model.startsWith("metaso") ? (
+          <MetasoIcon className="user-avatar" />
+        ) : props.model.startsWith("kimi") ? (
+          <MoonshotAiIcon className="user-avatar" />
         ) : (
           <BotIcon className="user-avatar" />
         )}
