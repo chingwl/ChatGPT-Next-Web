@@ -6,6 +6,15 @@ import EmojiPicker, {
 
 import { ModelType } from "../store";
 
+
+import BotIcon from "../icons/bot.svg";
+import BlackBotIcon from "../icons/black-bot.svg";
+import ClaudeAiIcon from "../icons/claude-ai-icon.svg";
+import GeminiIcon from "../icons/google-gemini-icon.svg";
+import MetaLlamaIcon from "../icons/meta-llama-icon.svg";
+import MetasoIcon from "../icons/metaso-icon.svg";
+import MoonshotAiIcon from "../icons/moonshot-ai-icon.svg";
+
 import BotIconDefault from "../icons/llm-icons/default.svg";
 import BotIconOpenAI from "../icons/llm-icons/openai.svg";
 import BotIconGemini from "../icons/llm-icons/gemini.svg";
@@ -21,6 +30,7 @@ import BotIconGrok from "../icons/llm-icons/grok.svg";
 import BotIconHunyuan from "../icons/llm-icons/hunyuan.svg";
 import BotIconDoubao from "../icons/llm-icons/doubao.svg";
 import BotIconChatglm from "../icons/llm-icons/chatglm.svg";
+
 
 export function getEmojiUrl(unified: string, style: EmojiStyle) {
   // Whoever owns this Content Delivery Network (CDN), I am using your CDN to serve emojis
@@ -88,7 +98,28 @@ export function Avatar(props: { model?: ModelType; avatar?: string }) {
 
     return (
       <div className="no-dark">
+
+        {props.model?.startsWith("gpt-4") ||
+        props.model?.startsWith("chatgpt-4o") ||
+        props.model?.startsWith("o1") || 
+        props.model?.startsWith("o3") ? (
+          <BlackBotIcon className="user-avatar" />
+        ) : props.model.startsWith("claude") ? (
+          <ClaudeAiIcon className="user-avatar" />
+        ) : props.model.startsWith("gemini") ? (
+          <GeminiIcon className="user-avatar" />
+        ) : props.model.startsWith("llama") ? (
+          <MetaLlamaIcon className="user-avatar" />
+        ) : props.model.startsWith("metaso") ? (
+          <MetasoIcon className="user-avatar" />
+        ) : props.model.startsWith("kimi") ? (
+          <MoonshotAiIcon className="user-avatar" />
+        ) : (
+          <BotIcon className="user-avatar" />
+        )}
+
         <LlmIcon className="user-avatar" width={30} height={30} />
+
       </div>
     );
   }
