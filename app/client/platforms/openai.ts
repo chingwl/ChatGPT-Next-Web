@@ -199,6 +199,9 @@ export class ChatGPTApi implements LLMApi {
     const isO1OrO3 =
       options.config.model.startsWith("o1") ||
       options.config.model.startsWith("o3") ||
+      options.config.model.startsWith("gpt-o1") ||
+      options.config.model.startsWith("gpt-o3") ||
+      options.config.model.startsWith("gpt-o4-mini") ||
       options.config.model.startsWith("o4-mini");
     if (isDalle3) {
       const prompt = getMessageTextContent(
